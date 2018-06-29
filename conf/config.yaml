@@ -1,3 +1,4 @@
 runmode: debug               # 开发模式, debug, release, test
 addr: :6663                  # HTTP绑定端口
 name: apiserver              # API Server的名字...
+test: test                   # add test
