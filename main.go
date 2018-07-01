@@ -2,7 +2,7 @@ package main
 
 import (
     "net/http"
-    "log"
+    "github.com/lexkong/log"
     "github.com/bigbignerd/GoRESTful/router"
     "github.com/bigbignerd/GoRESTful/config"
 
@@ -32,6 +32,6 @@ func main(){
         g,
         middlewares...,
     )
-    log.Printf("start to listening the incoming requests on http address %s",viper.GetString("addr")) 
-    log.Printf(http.ListenAndServe(viper.GetString("addr"), g).Error())
+    log.Infof("start to listening the incoming requests on http address %s",viper.GetString("addr")) 
+    log.Infof(http.ListenAndServe(viper.GetString("addr"), g).Error())
 }
