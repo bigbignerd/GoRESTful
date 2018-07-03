@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/bigbignerd/GoRESTful/router/middleware"
+    "github.com/bigbignerd/GoRESTful/handler/user"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,12 +17,17 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	g.Use(middleware.Options)
 	g.Use(middleware.Secure)
 	g.Use(mw...)
+    
 	// 404 Handler.
 	g.NoRoute(func(c *gin.Context) {
 		c.String(http.StatusNotFound, "The incorrect API route.")
 	})
+    u := g.Group("/v1/user")
+    {
+        u.POST("", user.Create)
+    }
 
-	// The health check handlers
+  	// The health check handlers
 	//svcd := g.Group("/sd")
 	//{
 	//	svcd.GET("/health", sd.HealthCheck)

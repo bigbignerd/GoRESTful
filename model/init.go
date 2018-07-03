@@ -32,6 +32,7 @@ func openDB(username, password, addr, name string) *gorm.DB {
 }
 
 func setupDB(db *gorm.DB) {
+    fmt.Print(viper.GetBool("gormlog"))
     db.LogMode(viper.GetBool("gormlog"))
     db.DB().SetMaxIdleConns(0)
 }
