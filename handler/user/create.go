@@ -2,37 +2,41 @@ package user
 
 import (
     "fmt"
-    "net/http"
     "github.com/bigbignerd/GoRESTful/pkg/errno"
+    . "github.com/bigbignerd/GoRESTful/handler"
     "github.com/gin-gonic/gin"
     "github.com/lexkong/log"
 )
 
 func Create(c *gin.Context) {
-    var r struct {
-        Username string `json:"username"`
-        Password string `json:password`
-    }
+    var r CreateRequest
 
-    var err error
     if err := c.Bind(&r); err != nil {
-        c.JSON(http.StatusOK, gin.H{"error": errno.ErrBind})
+        fmt.Print(err)
+        SendResponse(c, errno.ErrBind, nil)
         return
     }
+    admin2 := c.Param("username")
+    log.Infof("URL username:%s", admin2)
+
+    desc := c.Query("desc")
+    log.Infof("URL key param desc: %s", desc)
+
+    contentType := c.GetHeader("Content-Type")
+    log.Infof("Header Content-Type:%s", contentType)
 
     log.Debugf("username is:[%s], password is [%s]", r.Username, r.Password)
 
     if r.Username == "" {
-        err = errno.New(errno.ErrUserNotFound, fmt.Errorf("username can not found in xx"))
-        log.Errorf(err, "Get an error")
+        SendResponse(c, errno.New(errno.ErrUserNotFound, fmt.Errorf("username can not found in xx")), nil)
+        return
     }
 
-    if errno.IsErrUserNotFound(err) {
-        log.Debug("err type is ErrUserNotFound")
-    }
     if r.Password == "" {
-        err = fmt.Errorf("passwrod is empty")
+        SendResponse(c, fmt.Errorf("password is empty"), nil)
     }
-    code, message := errno.DecodeErr(err)
-    c.JSON(http.StatusOK, gin.H{"code": code, "message": message})
+    rsp := CreateResponse{
+        Username : r.Username,
+    }
+    SendResponse(c, nil, rsp)
 }
