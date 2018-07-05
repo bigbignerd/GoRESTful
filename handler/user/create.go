@@ -8,10 +8,11 @@ import (
     "github.com/gin-gonic/gin"
     "github.com/lexkong/log"
     "github.com/lexkong/log/lager"
+    "github.com/bigbignerd/GoRESTful/util"
 )
 
 func Create(c *gin.Context) {
-    log.Info("user create function called.", lager.Data{"X-Request-Id":util.GetRqeID(c)})
+    log.Info("user create function called.", lager.Data{"X-Request-Id":util.GetReqID(c)})
     var r CreateRequest
 
     if err := c.Bind(&r); err != nil {

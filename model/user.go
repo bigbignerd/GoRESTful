@@ -1,7 +1,7 @@
 package model
 
 import (
-    "fmt"
+    "github.com/bigbignerd/GoRESTful/pkg/auth"
     validator "gopkg.in/go-playground/validator.v9"
 )
 
@@ -25,4 +25,14 @@ func DeleteUser(id uint64) error {
     user := UserModel{}
     user.BaseModel.Id = id
     return DB.Self.Delete(&user).Error
+}
+
+func (u *UserModel) Encrypt() (err error) {
+    u.Password, err = auth.Encrypt(u.Password)
+    return
+}
+
+func (u *UserModel) Validate() error {
+    validate := validator.New()
+    return validate.Struct(u)
 }
