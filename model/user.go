@@ -3,6 +3,7 @@ package model
 import (
     "github.com/bigbignerd/GoRESTful/pkg/auth"
     validator "gopkg.in/go-playground/validator.v9"
+    "fmt"
 )
 
 type UserModel struct {
