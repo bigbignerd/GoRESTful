@@ -3,7 +3,6 @@ package model
 import (
     "github.com/bigbignerd/GoRESTful/pkg/auth"
     validator "gopkg.in/go-playground/validator.v9"
-    "fmt"
 )
 
 type UserModel struct {
@@ -27,6 +26,12 @@ func DeleteUser(id uint64) error {
     user.BaseModel.Id = id
     return DB.Self.Delete(&user).Error
 }
+
+//update user
+func (u *UserModel) Update() error {
+    return DB.Self.Save(u).Error
+}
+
 
 func (u *UserModel) Encrypt() (err error) {
     u.Password, err = auth.Encrypt(u.Password)

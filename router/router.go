@@ -26,7 +26,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
     {
         u.POST("", user.Create)
         u.DELETE("/:id", user.Delete)
-        //u.PUT("/:id", user.Update)
+        u.PUT("/:id", user.Update)
         //u.GET("", user.List)
         //u.GET("/:username", user.Get) 
     } 

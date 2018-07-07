@@ -1,7 +1,6 @@
 package user
 
 import (
-    "fmt"
     "github.com/bigbignerd/GoRESTful/pkg/errno"
     "github.com/bigbignerd/GoRESTful/model"
     . "github.com/bigbignerd/GoRESTful/handler"
@@ -16,7 +15,6 @@ func Create(c *gin.Context) {
     var r CreateRequest
 
     if err := c.Bind(&r); err != nil {
-        fmt.Print(err)
         SendResponse(c, errno.ErrBind, nil)
         return
     }
