@@ -2,6 +2,7 @@ package model
 
 import (
     "time"
+    "sync"
 )
 
 type BaseModel struct {
@@ -18,4 +19,9 @@ type UserInfo struct {
 	Password  string `json:"password"`
 	CreatedAt string `json:"createdAt"`
 	UpdatedAt string `json:"updatedAt"`
+}
+
+type UserList struct {
+    Lock *sync.Mutex
+    IdMap map[uint64]*UserInfo
 }
