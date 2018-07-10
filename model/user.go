@@ -53,7 +53,12 @@ func ListUser(username string, offset, limit int) ([]*UserModel, uint64, error) 
 
     return users, count, nil
 }
-
+//get user by username
+func GetUser(username string) (*UserModel, error) {
+    u := &UserModel{}
+    d := DB.Self.Where("username = ?", username).First(&u)
+    return u, d.Error
+}
 func (u *UserModel) Encrypt() (err error) {
     u.Password, err = auth.Encrypt(u.Password)
     return
