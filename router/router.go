@@ -28,7 +28,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
         u.DELETE("/:id", user.Delete)
         u.PUT("/:id", user.Update)
         u.GET("", user.List)
-        u.GET("/:usernam", user.Get) 
+        u.GET("/:username", user.Get) 
     } 
   	// The health check handlers
 	//svcd := g.Group("/sd")
