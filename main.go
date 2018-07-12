@@ -4,6 +4,7 @@ import (
 	"github.com/bigbignerd/GoRESTful/config"
 	"github.com/bigbignerd/GoRESTful/model"
 	"github.com/bigbignerd/GoRESTful/router"
+	"github.com/bigbignerd/GoRESTful/router/middleware"
 	"github.com/lexkong/log"
 	"net/http"
 
@@ -28,11 +29,11 @@ func main() {
 	gin.SetMode(viper.GetString("runmode"))
 
 	g := gin.New()
-	middlewares := []gin.HandlerFunc{}
 
 	router.Load(
 		g,
-		middlewares...,
+        middleware.Logging(),
+        middleware.RequestId(),
 	)
 	//init db
 	model.DB.Init()
